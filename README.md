@@ -5,6 +5,7 @@ A Django-based application to submit, list, and update employee leave requests w
 1. Clone the Repository
 Bash
 git clone https://github.com/Erico-droid/LRSS_CHALLENGE.git
+cd LRSS_CHALLENGE
 
 2. Set Up a Virtual Environment
 It is recommended to use a virtual environment to keep your global Python packages clean.
