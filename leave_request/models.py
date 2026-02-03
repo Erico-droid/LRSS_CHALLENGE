@@ -59,14 +59,6 @@ class LeaveRequest(models.Model):
                 day_count += 1
             current_day += timedelta(days=1)
         return day_count
+    
+    
 
-    def save(self, *args, **kwargs):
-        """
-        My Thought Process... 
-        If the end date falls on a weekend, adjust it to the next Monday. (Saturday -> +2 days, Sunday -> +1 day)
-        """
-        if self.end_date.weekday() == 5:  # If end date falls on Sat
-            self.end_date += timedelta(days=2)
-        elif self.end_date.weekday() == 6:  #If end date falls on Sun
-            self.end_date += timedelta(days=1)
-        super().save(*args, **kwargs)
