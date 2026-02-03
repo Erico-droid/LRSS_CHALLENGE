@@ -37,7 +37,7 @@ python manage.py makemigrations
 python manage.py migrate
 
 
-6. Run the Application
+5. Run the Application
 Start the development server:
 
 Bash
