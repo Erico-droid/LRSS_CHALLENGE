@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from datetime import timedelta
 
 class LeaveRequest(models.Model):
@@ -41,6 +41,12 @@ class LeaveRequest(models.Model):
 
     def __str__(self):
         return f"{self.user_firstname} {self.user_lastname} - {self.leave_type}"
+
+    def clean(self):
+        if self.start_date and self.end_date and self.end_date < self.start_date:
+            raise ValidationError(
+                {'end_date': 'End date must be on or after the start date.'}
+            )
 
     @property
     def number_of_days(self):

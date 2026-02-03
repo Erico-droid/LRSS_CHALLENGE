@@ -1,5 +1,7 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from .models import LeaveRequest
+
 
 class LeaveRequestForm(forms.ModelForm):
     class Meta:
@@ -19,3 +21,13 @@ class LeaveRequestForm(forms.ModelForm):
             'end_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'leave_type': forms.Select(attrs={'class': 'form-select'}),
         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get('start_date')
+        end_date = cleaned_data.get('end_date')
+        if start_date and end_date and end_date < start_date:
+            raise ValidationError(
+                {'end_date': 'End date must be on or after the start date.'}
+            )
+        return cleaned_data
